@@ -1,50 +1,47 @@
-# Welcome to AirSim
+# Autodrive AirSim
 
-AirSim is a simulator for drones, cars and more, built on [Unreal Engine](https://www.unrealengine.com/) (we now also have an experimental [Unity](https://unity3d.com/) release). It is open-source, cross platform, and supports hardware-in-loop with popular flight controllers such as PX4 for physically and visually realistic simulations. It is developed as an Unreal plugin that can simply be dropped into any Unreal environment. Similarly, we have an experimental release for a Unity plugin.
+Microsoft tarafından bilgisayarla görü ve reinforcement ile öğrenme gibi yapay zeka araştırmaları için geliştirilmiş özel bir simülatördür. Araba, drone gibi çeşitli kara ve hava alanlarında kullanılabilir. 
 
-Our goal is to develop AirSim as a platform for AI research to experiment with deep learning, computer vision and reinforcement learning algorithms for autonomous vehicles. For this purpose, AirSim also exposes APIs to retrieve data and control vehicles in a platform independent way.
+Airsim, Unreal Engine plugin'i olarak tasarlanmıştır ve hala geliştirme aşamasında olsa da Unity versiyonu da mevcuttur.
 
-**Check out the quick 1.5 minute demo**
+## Versiyon
+v1.3.1 - Windows
 
-Drones in AirSim
-
-[![AirSim Drone Demo Video](docs/images/demo_video.png)](https://youtu.be/-WfTr1-OBGQ)
-
-Cars in AirSim
-
-[![AirSim Car Demo Video](docs/images/car_demo_video.png)](https://youtu.be/gnz1X3UNM5Y)
-
-## What's New
-
-* Latest release `v1.3.1` for [Windows](https://github.com/microsoft/AirSim/releases/tag/v1.3.1-windows) and [Linux](https://github.com/microsoft/AirSim/releases/tag/v1.3.1-linux)
-* Upgraded to Unreal Engine 4.24, Visual Studio 2019, Clang 8, C++ 17 standard
-* Mac OSX Catalina support
-* Updated [airsim](https://pypi.org/project/airsim/) Python package, with lots of new APIs
-* [Removed legacy API wrappers](https://github.com/microsoft/AirSim/pull/2494)
-* [Support for latest PX4 stable release](https://microsoft.github.io/AirSim/px4_setup/)
-* Support for [ArduPilot](https://ardupilot.org/ardupilot/) - [Copter, Rover vehicles](https://ardupilot.org/dev/docs/sitl-with-airsim.html)
-* [Updated Unity support](https://microsoft.github.io/AirSim/Unity/)
-* [Removed simChar* APIs](https://github.com/microsoft/AirSim/pull/2493)
-* [Plotting APIs for Debugging](https://github.com/microsoft/AirSim/pull/2304)
-* ROS wrapper for multirotors is available. See [airsim_ros_pkgs](https://microsoft.github.io/AirSim/airsim_ros_pkgs/) for the ROS API, and [airsim_tutorial_pkgs](https://microsoft.github.io/AirSim/airsim_tutorial_pkgs/) for tutorials.
-* Added support for [docker in ubuntu](https://microsoft.github.io/AirSim/docker_ubuntu/)
-
-For complete list of changes, view our [Changelog](docs/CHANGELOG.md)
-
-## How to Get It
+## Kurulum
 
 ### Windows
-* [Download binaries](https://microsoft.github.io/AirSim/use_precompiled)
-* [Build it](https://microsoft.github.io/AirSim/build_windows)
 
-### Linux
-* [Download binaries](https://microsoft.github.io/AirSim/use_precompiled)
-* [Build it](https://microsoft.github.io/AirSim/build_linux)
+AirSim bir Unreal plugin’i olarak tasarlanmıştır. Dolayısıyla kendi başına çalışamaz ve bir Unreal projesine (environment) ihtiyaç duyar. Airsim’i build edip test etmek 2 aşamadan oluşur:
+* Build the plugin
+* Deploy plugin in Unreal project and run the project.
 
-### macOS
-* [Build it](https://microsoft.github.io/AirSim/build_linux)
+Bu nedenle öncelikle bilgisayarımıza Unreal Engine (UE >= 4.22) kurmamız gerekir. Bunun için:
+1.	Öncelikle Epic Games Launcher’ı indirin. Unreal Engine açık kaynak kodludur ama indirmek için Unreal Engine sitesinde hesap açmanız gerekmektedir. Hesap açtıktan sonra aşağıdaki linkten Epic Games launcher’ı indirin.
+https://www.unrealengine.com/en-US/download
+2.	İndirme işlemi tamamlanınca Epic Games launcher’ı açın ve üst taraftaki panelde bulunan “Library” tabını açın ve Engine Versions kısmındaki + butonuna tıklayarak Unreal 4.24 versionunu indirin.
+3.	Daha sonrasında Airsim’i build etmek için Visual Studio 2019’u indirin. 
+“Desktop Development with C++ “ ile “Windows 10 SDK 10.0.18362” seçeneklerinin seçili olduğundan emin olun.
+Not: Eğer Airsim’deki PythonClient API’sini kullanacaksanız “Development with Python” paketini de seçin.
 
-[![Build Status](https://travis-ci.org/Microsoft/AirSim.svg?branch=master)](https://travis-ci.org/Microsoft/AirSim)
+4.	İndirme tamamlandıktan sonra “Developer Command Prompt for VS 2019” ini açın ve Airsim reposunu clone’layın ve build edin.
+git clone https://github.com/Microsoft/AirSim.git
+cd Airsim
+build.cmd
+
+Build işleminden sonra, Unreal\Plugins klasöründe herhangi bir Unreal projesine bırakılabilen kullanıma hazır plugin bitleri oluşturulur.
+5.	Son olarak airsim’i kullanabilmek için bir Unreal Projesine ihtiyacımız vardır. Bunun için örnek olarak Airsim ile birlikte gelen “Blocks Environment” i kullanacağız.
+Bu environment klasörü aşağıdaki dosya yolunda olabilir:
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\AirSim\Unreal\Environments\Blocks
+
+```
+$ cd \Unreal\Environments\Blocks
+$ update_from_git.bat
+```
+Bu komutlardan sonra klasrün içinde bir Blocks.sln solution dosyası oluşması gerekir.
+Eğer aşağıdaki gibi bir Key hatası alındıysa muhtemelen Unreal Engine build’i ile ilgili bir sorun vardır.
+```
+Error: Cannot find path 'HKEY_CLASSES_ROOT\Unreal.ProjectFile\shell\rungenproj' because it does not exist
+```
 
 ## How to Use It
 
@@ -79,66 +76,9 @@ There are two ways you can generate training data from AirSim for deep learning.
 
 ![record screenshot](docs/images/record_data.png)
 
-A better way to generate training data exactly the way you want is by accessing the APIs. This allows you to be in full control of how, what, where and when you want to log data.
-
-### Computer Vision mode
-
-Yet another way to use AirSim is the so-called "Computer Vision" mode. In this mode, you don't have vehicles or physics. You can use the keyboard to move around the scene, or use APIs to position available cameras in any arbitrary pose, and collect images such as depth, disparity, surface normals or object segmentation.
-
-[More details](https://microsoft.github.io/AirSim/image_apis/)
-
-### Weather Effects
-
-Press F10 to see various options available for weather effects. You can also control the weather using [APIs](https://microsoft.github.io/AirSim/apis#weather-apis). Press F1 to see other options available.
-
-![record screenshot](docs/images/weather_menu.png)
-
-## Tutorials
-
-- [Video - Setting up AirSim with Pixhawk Tutorial](https://youtu.be/1oY8Qu5maQQ) by Chris Lovett
-- [Video - Using AirSim with Pixhawk Tutorial](https://youtu.be/HNWdYrtw3f0) by Chris Lovett
-- [Video - Using off-the-self environments with AirSim](https://www.youtube.com/watch?v=y09VbdQWvQY) by Jim Piavis
-- [Reinforcement Learning with AirSim](https://microsoft.github.io/AirSim/docs/reinforcement_learning) by Ashish Kapoor
-- [The Autonomous Driving Cookbook](https://aka.ms/AutonomousDrivingCookbook) by Microsoft Deep Learning and Robotics Garage Chapter
-- [Using TensorFlow for simple collision avoidance](https://github.com/simondlevy/AirSimTensorFlow) by Simon Levy and WLU team
-
-## Participate
 
 ### Paper
 
 More technical details are available in [AirSim paper (FSR 2017 Conference)](https://arxiv.org/abs/1705.05065). Please cite this as:
-```
-@inproceedings{airsim2017fsr,
-  author = {Shital Shah and Debadeepta Dey and Chris Lovett and Ashish Kapoor},
-  title = {AirSim: High-Fidelity Visual and Physical Simulation for Autonomous Vehicles},
-  year = {2017},
-  booktitle = {Field and Service Robotics},
-  eprint = {arXiv:1705.05065},
-  url = {https://arxiv.org/abs/1705.05065}
-}
-```
 
-### Contribute
 
-Please take a look at [open issues](https://github.com/microsoft/airsim/issues) if you are looking for areas to contribute to.
-
-* [More on AirSim design](https://microsoft.github.io/AirSim/design)
-* [More on code structure](https://microsoft.github.io/AirSim/code_structure)
-* [Contribution Guidelines](CONTRIBUTING.md)
-* [Trello Board](https://trello.com/b/1t2qCeaA/wishlist-by-community-for-community)
-
-### Who is Using AirSim?
-
-We are maintaining a [list](https://microsoft.github.io/AirSim/who_is_using) of a few projects, people and groups that we are aware of. If you would like to be featured in this list please [make a request here](https://github.com/microsoft/airsim/issues).
-
-## Contact
-
-Join the AirSim group on [Facebook](https://www.facebook.com/groups/1225832467530667/) to stay up to date or ask any questions.
-
-## FAQ
-
-If you run into problems, check the [FAQ](https://microsoft.github.io/AirSim/faq) and feel free to post issues in the  [AirSim](https://github.com/Microsoft/AirSim/issues) repository.
-
-## License
-
-This project is released under the MIT License. Please review the [License file](LICENSE) for more details.
