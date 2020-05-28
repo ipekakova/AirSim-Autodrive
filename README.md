@@ -31,15 +31,15 @@ build.cmd
 ```
 
 Build işleminden sonra, Unreal\Plugins klasöründe herhangi bir Unreal projesine bırakılabilen kullanıma hazır plugin bitleri oluşturulur.
-5.	Son olarak airsim’i kullanabilmek için bir Unreal Projesine ihtiyacımız vardır. Bunun için örnek olarak Airsim ile birlikte gelen “Blocks Environment” i kullanacağız.
-Bu environment klasörü aşağıdaki dosya yolunda olabilir:
+
+5.	Son olarak airsim’i kullanabilmek için bir Unreal Projesine ihtiyacımız vardır. Bunun için örnek olarak Airsim ile birlikte gelen “Blocks Environment” i kullanacağız. Bu environment klasörü aşağıdaki dosya yolunda olabilir:
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\AirSim\Unreal\Environments\Blocks
 
 ```
 $ cd \Unreal\Environments\Blocks
 $ update_from_git.bat
 ```
-Bu komutlardan sonra klasrün içinde bir Blocks.sln solution dosyası oluşması gerekir.
+Bu komutlardan sonra klasörün içinde bir Blocks.sln solution dosyası oluşması gerekir.
 Eğer aşağıdaki gibi bir Key hatası alındıysa muhtemelen Unreal Engine build’i ile ilgili bir sorun vardır.
 ```
 Error: Cannot find path 'HKEY_CLASSES_ROOT\Unreal.ProjectFile\shell\rungenproj' because it does not exist
@@ -47,7 +47,12 @@ Error: Cannot find path 'HKEY_CLASSES_ROOT\Unreal.ProjectFile\shell\rungenproj' 
 
 ![](images/key_error.JPG)
 
-Fix: Epic Launcher’ı tekrar çalıştırın ve karşınıza "Unreal Engine files are not associated, would you like to associate them?" diye soran bir uyarı çıkarsa “Evet” i seçip tekrar “update_from_git.bat” komutunu çalıştırın ve bu sayede gerekli key’ler üretilmiş olur.
+Fix: Epic Launcher’ı tekrar çalıştırın ve karşınıza 
+```
+"Unreal Engine files are not associated, would you like to associate them?" 
+```
+gibi bir uyarı çıkarsa “Evet” i seçip tekrar “update_from_git.bat” komutunu çalıştırın ve bu sayede gerekli key’ler üretilmiş olur.
+
 6.	Eğer sln dosyası üretilmediyse ve yine aynı klasörde (Unreal\Environments\Blocks ) bulunan  .bat dosyalarını kullanabilirsiniz:
 
 ```
@@ -71,42 +76,22 @@ Daha sonrasında VS için olan develeoper command prompt’unda tekrardan aynı 
 $ clean.bat
 $ GenerateProjectFiles.bat
 ```
-Eğer proje dosyaları düzgünce üretiliyorsa aşağıdaki gibi bir pencere çıkması gerekir.
+Eğer proje dosyaları düzgünce üretiliyorsa "Generating Project Files..." yazılı bir pencere çıkması gerekmektedir.
+Proje dosyalarını üretildikten sonra Unreal/Environments/Blocks dosya yolunda Blocks.sln dosyası oluşmuş olacaktır. Bu demektir ki kullanacağımız Unreal environmenti olan Blocks env. hazırlandı.
+
+7.	Daha sonra üretilen “Blocks.sln” dosyasına çift tıklayıp Visual Studio ile açtığımızda yukardaki configuration kısmını “DebugGame_Editor” ve “Win64” olarak ayarlamanız gerekir.  
+Daha  sonra Visual Studio’da “Play” butonuna basarak Unreal Projesini başlatın.
+Build işlemi bitince Otomatik olarak UnrealEditor içerisinde seçtiğimiz Blocks  Environment açılacak. 
+Compile işlemi bitince simulatörü çalıştırabilirsiniz.
+
+8.	Unreal Editorde “Compiling Shaders” aşaması bitince "Play" butonuna tıklayın ve simülatörü çalıştırın.
 
 ### Documentation
 
-View our [detailed documentation](https://microsoft.github.io/AirSim/) on all aspects of AirSim.
-
-### Manual drive
-
-If you have remote control (RC) as shown below, you can manually control the drone in the simulator. For cars, you can use arrow keys to drive manually.
-
-[More details](https://microsoft.github.io/AirSim/remote_control/)
-
-![record screenshot](docs/images/AirSimDroneManual.gif)
-
-![record screenshot](docs/images/AirSimCarManual.gif)
-
-
-### Programmatic control
-
-AirSim exposes APIs so you can interact with the vehicle in the simulation programmatically. You can use these APIs to retrieve images, get state, control the vehicle and so on. The APIs are exposed through the RPC, and are accessible via a variety of languages, including C++, Python, C# and Java.
-
-These APIs are also available as part of a separate, independent cross-platform library, so you can deploy them on a companion computer on your vehicle. This way you can write and test your code in the simulator, and later execute it on the real vehicles. Transfer learning and related research is one of our focus areas.
-
-Note that you can use [SimMode setting](https://microsoft.github.io/AirSim/settings#simmode) to specify the default vehicle or the new [ComputerVision mode](https://microsoft.github.io/AirSim/image_apis#computer-vision-mode-1) so you don't get prompted each time you start AirSim.
-
-[More details](https://microsoft.github.io/AirSim/apis/)
-
-### Gathering training data
-
-There are two ways you can generate training data from AirSim for deep learning. The easiest way is to simply press the record button in the lower right corner. This will start writing pose and images for each frame. The data logging code is pretty simple and you can modify it to your heart's content.
-
-![record screenshot](docs/images/record_data.png)
-
+(https://microsoft.github.io/AirSim/) on all aspects of AirSim.
 
 ### Paper
 
-More technical details are available in [AirSim paper (FSR 2017 Conference)](https://arxiv.org/abs/1705.05065). Please cite this as:
+ [AirSim paper (FSR 2017 Conference)](https://arxiv.org/abs/1705.05065)
 
 
